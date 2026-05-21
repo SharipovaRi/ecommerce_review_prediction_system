@@ -2,9 +2,14 @@ import streamlit as st
 import pandas as pd
 import joblib
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 # Load trained model
-model = joblib.load("models/model.pkl")
+BASE_DIR = Path(__file__).resolve().parent
+MODEL_PATH = BASE_DIR / "models" / "model.pkl"
+
+model = joblib.load(MODEL_PATH)
+
 
 # Page configuration
 st.set_page_config(

@@ -1,7 +1,10 @@
 import joblib
 import pandas as pd
+from pathlib import Path
 
-MODEL_PATH = "models/model.pkl"
+# Load Model
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "model.pkl"
 
 # Load trained sklearn pipeline
 def load_model():

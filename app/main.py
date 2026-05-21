@@ -6,7 +6,9 @@ import logging
 from pathlib import Path
 
 # Load trained model
-MODEL_PATH = "models/model.pkl"
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "model.pkl"
+
 model = joblib.load(MODEL_PATH)
 
 # Basic model monitoring

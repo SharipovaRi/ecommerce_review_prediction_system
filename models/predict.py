@@ -1,8 +1,12 @@
 import joblib
 import pandas as pd
+from pathlib import Path
 
 # Load Model
-model = joblib.load("models/model.pkl")
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "model.pkl"
+
+model = joblib.load(MODEL_PATH)
 
 # Sample Input
 sample_data = pd.DataFrame([{
