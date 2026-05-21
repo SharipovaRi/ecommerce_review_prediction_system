@@ -2,11 +2,22 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import joblib
+import logging
+from pathlib import Path
 
 # Load trained model
 MODEL_PATH = "models/model.pkl"
 model = joblib.load(MODEL_PATH)
 
+# Basic model monitoring
+LOG_PATH = Path("logs/predictions.log")
+LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+logging.basicConfig(
+    filename=LOG_PATH,
+    level=logging.INFO,
+    format="%(asctime)s - %(message)s"
+)
 
 # FastAPI app 
 app = FastAPI(
@@ -59,6 +70,7 @@ def predict_rating(data: ReviewInput):
         "product_category": data.product_category
     }])
 
+
     # Make prediction
     prediction = model.predict(input_df)[0]
 
@@ -79,6 +91,14 @@ def predict_rating(data: ReviewInput):
         probability_dict.get(1, 0)
         + probability_dict.get(2, 0)
     )
+    
+    # Logging 
+    logging.info({
+        "input": data.model_dump(),
+        "prediction": int(prediction),
+        "confidence": float(max(probabilities)),
+        "dissatisfied_probability": float(dissatisfied_probability)
+    })
 
 
     # Return response
