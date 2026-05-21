@@ -4,7 +4,7 @@ This project is an end-to-end Machine Learning system that predicts customer rev
 The system is designed with a modular ML pipeline separating data processing, model training, and deployment components, making it suitable as a production-style ML application.
 
 ## Disclaimer 
-Originally, it was developed as part of a graduate-level Machine Learning course and it was enhanced by me into a production-style ML application.
+Originally, this project was developed as part of a graduate-level Machine Learning course final group project. I later extended and enhanced into a production-style machine learning application.
 
 Predictions are probabilistic and should not be used as the sole basis for business decisions.
 
