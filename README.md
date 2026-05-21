@@ -1,6 +1,6 @@
 # Customer Review Rating Prediction System
 ## Overview
-This project is an end-to-end Machine Learning system that predicts customer review ratings (1–5 stars) and identifies dissatisfaction risk based on both review text and structured e-commerce data. 
+This project is an end-to-end Machine Learning system that predicts customer review ratings (1–5 ratings) and identifies dissatisfaction risk based on both review text and structured e-commerce data. 
 The system is designed with a modular ML pipeline separating data processing, model training, and deployment components, making it suitable as a production-style ML application.
 
 ## Disclaimer 
@@ -11,7 +11,7 @@ Predictions are probabilistic and should not be used as the sole basis for busin
 ## Key Features 
 
 * Natural language processing of customer reviews
-* Multi-class rating prediction (1–5)
+* Multi-class rating prediction (ratings 1–5)
 * Dissatisfaction risk scoring (ratings 1–2)
 * Probability distribution visualization
 * Real-time inference API (FastAPI)
@@ -24,7 +24,7 @@ Predictions are probabilistic and should not be used as the sole basis for busin
 ## Problem Statement
 Online retailers often struggle to identify dissatisfied customers early. This system enables proactive customer support and business intervention. It predicts:
 
-* Star rating (1–5)
+* Rating (1–5)
 * Probability of dissatisfaction (ratings 1–2)
 * Full probability distribution across ratings 
 
@@ -75,21 +75,32 @@ Fully modular sklearn Pipeline combining:
 
 ## Running the Project Locally
 1. Clone repository
-git clone https://github.com/SharipovaRi/ecommerce_review_prediction_system.git
-cd ecommerce_review_prediction_system
+   
+`git clone https://github.com/SharipovaRi/ecommerce_review_prediction_system.git
+`
+
+`cd ecommerce_review_prediction_system
+`
 
 2. Install dependencies
-pip install -r requirements.txt
+   
+`pip install -r requirements.txt
+`
 
 3. Run FastAPI
-uvicorn app.main:app --reload
+
+`uvicorn app.main:app --reload
+`
 
 4. Run Streamlit app
-streamlit run streamlit_app.py
+
+`streamlit run streamlit_app.py
+`
 
 ## Running Tests
-1. python -m pytest tests -v   
 
+`python -m pytest tests -v   
+`
 ## CI/CD Pipeline
 This project uses GitHub Actions to:
 
@@ -101,8 +112,9 @@ This project uses GitHub Actions to:
 ## Docker
 The application is containerized to ensure reproducible environments across development and deployment.
 
-1. docker build -t review-model .
+`docker build -t review-model .
 docker run -p 8000:8000 review-model
+`
 
 ## Monitoring and Logging
 The API includes logging to track prediction requests, model outputs and scores. 
