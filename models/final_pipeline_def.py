@@ -1,5 +1,3 @@
-import numpy as np
-
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -29,8 +27,8 @@ CATEGORICAL_FEATURES = ["product_category"]
 # Text Pipeline with the best settings
 text_pipeline = Pipeline([
     ("tfidf", TfidfVectorizer(
-        max_features=5000,
-        ngram_range=(1, 1),   # from your tuning result
+        max_features=1000,
+        ngram_range=(1, 1),   
         min_df=2,
         stop_words="english"
     )),
