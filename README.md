@@ -8,6 +8,19 @@ Originally, this project was developed as part of a graduate-level Machine Learn
 
 Predictions are probabilistic and should not be used as the sole basis for business decisions.
 
+## My Contributions
+
+Following the original graduate ML project, I independently:
+
+* Refactored notebook experiments into a modular codebase
+* Built a FastAPI inference service
+* Developed a Streamlit application
+* Implemented Docker containerization
+* Added automated testing
+* Configured GitHub Actions CI
+* Deployed frontend and backend on Railway
+* Added threshold calibration and production-oriented evaluation
+  
 ## Key Features 
 
 * Natural language processing of customer reviews
@@ -165,7 +178,7 @@ The project includes:
 ### DevOps
 
 * Docker (containerized)
-* GitHub Actions (CI/CD)
+* GitHub Actions (CI)
 
 ### Testing
 
@@ -200,7 +213,7 @@ The project includes:
 
 `python -m pytest tests -v   
 `
-## CI/CD Pipeline
+## CI Pipeline
 This project uses GitHub Actions to:
 
 * Install dependencies
