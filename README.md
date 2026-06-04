@@ -68,7 +68,7 @@ Fully modular sklearn Pipeline combining:
 
 The project follows a modular production-style machine learning architecture separating frontend, backend, inference pipeline, and deployment components.
 
-`images/system_architecture.png`
+![System Architecture](images/system_architecture.png)
 
 ### Architecture Components
 
