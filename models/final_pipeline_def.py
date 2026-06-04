@@ -29,7 +29,7 @@ text_pipeline = Pipeline([
     ("tfidf", TfidfVectorizer(
         max_features=1000,
         ngram_range=(1, 1),   
-        min_df=2,
+        min_df=5,
         stop_words="english"
     )),
     ("svd", TruncatedSVD(
@@ -65,10 +65,10 @@ preprocessor = ColumnTransformer([
 # Final best model
 model = HistGradientBoostingClassifier(
     learning_rate=0.1,
-    max_iter=100,
-    max_depth=3,
+    max_iter=200,
+    max_depth=5,
     max_leaf_nodes=15,
-    l2_regularization=0.1,
+    l2_regularization=0.01,
     random_state=42
 )
 
