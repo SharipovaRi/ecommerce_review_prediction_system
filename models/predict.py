@@ -12,7 +12,7 @@ model = joblib.load(MODEL_PATH)
 sample_data = pd.DataFrame([{
     "review_text": "The product was amazing and arrived quickly",
     "product_price": 49.99,
-    "product_category": "electronics",
+    "product_category": 0,
     "seller_rating": 4.5,
     "delivery_days": 2,
     "product_age_months": 12,
@@ -22,8 +22,7 @@ sample_data = pd.DataFrame([{
     "helpful_votes": 3,
     "discount_pct": 20,
     "product_weight_kg": 1.2,
-    "image_count": 2,
-    "return_initiated": 0
+    "image_count": 2
 }])
 
 # Prediction

@@ -43,7 +43,7 @@ class ReviewInput(BaseModel):
     discount_pct: float
     product_weight_kg: float
     image_count: int
-    product_category: str
+    product_category: int
     verified_purchase: int
 
 # Root endpoint

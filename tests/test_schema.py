@@ -15,7 +15,7 @@ def test_schema_valid_input():
         discount_pct=0.1,
         product_weight_kg=1.0,
         image_count=1,
-        product_category="electronics"
+        product_category=0
     )
 
     assert data.review_text == "Great product"

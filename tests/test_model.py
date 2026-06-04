@@ -15,7 +15,7 @@ def test_model_prediction():
         "discount_pct": 0.1,
         "product_weight_kg": 1.0,
         "image_count": 1,
-        "product_category": "electronics"
+        "product_category": 0
     }])
 
     pred = model.predict(sample)

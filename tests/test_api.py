@@ -17,7 +17,7 @@ def test_predict_endpoint():
         "discount_pct": 0.1,
         "product_weight_kg": 1.0,
         "image_count": 1,
-        "product_category": "electronics"
+        "product_category": 0
     })
 
     assert response.status_code == 200

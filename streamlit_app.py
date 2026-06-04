@@ -127,9 +127,9 @@ with col2:
     discount_pct = st.number_input(
         "Discount Percentage",
         min_value=0.0,
-        max_value=1.0,
-        value=0.10,
-        step=0.01
+        max_value=50.0,
+        value=20.0,
+        step=1.0
     )
 
     product_weight_kg = st.number_input(
@@ -144,19 +144,24 @@ with col2:
         value=1
     )
 
-# Product category
-product_category = st.selectbox(
+# Product category 
+CATEGORY_MAP = {
+    "Electronics": 0,
+    "Fashion": 1,
+    "Home": 2,
+    "Beauty": 3,
+    "Sports": 4,
+    "Books": 5,
+    "Toys": 6,
+    "Other": 7
+}
+
+selected_category = st.selectbox(
     "Product Category",
-    [
-        "electronics",
-        "fashion",
-        "home",
-        "beauty",
-        "sports",
-        "books",
-        "toys"
-    ]
+    list(CATEGORY_MAP.keys())
 )
+
+product_category = CATEGORY_MAP[selected_category]
 
 # Prediction button
 if st.button("Predict Rating"):
