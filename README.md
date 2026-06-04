@@ -8,6 +8,19 @@ Originally, this project was developed as part of a graduate-level Machine Learn
 
 Predictions are probabilistic and should not be used as the sole basis for business decisions.
 
+## My Contributions
+
+Following the original graduate ML project, I independently:
+
+* Refactored notebook experiments into a modular codebase
+* Built a FastAPI inference service
+* Developed a Streamlit application
+* Implemented Docker containerization
+* Added automated testing
+* Configured GitHub Actions CI
+* Deployed frontend and backend on Railway
+* Added threshold calibration and production-oriented evaluation
+  
 ## Key Features 
 
 * Natural language processing of customer reviews
@@ -33,7 +46,15 @@ https://e-commerce-review-prediction-system.up.railway.app/
 2. Enter review details
 3. Click "Predict Rating"
 4. View prediction and probability breakdown
-   
+
+### Application Screenshots 
+#### Input Interface
+![Input Interface](images/input_streamlit.png)
+
+#### Prediction Results
+![Prediction Results 1](images/output_streamlit_1.png)
+![Prediction Results 2](images/output_streamlit_2.png)
+
 ### FastAPI backend link (API):
 
 https://backend-e-commerce-review-prediction-system.up.railway.app/docs
@@ -66,7 +87,7 @@ Fully modular sklearn Pipeline combining:
 
 ## System Architecture
 
-The project follows a modular production-style machine learning architecture separating frontend, backend, inference pipeline, and deployment components.
+The system is split into four layers: Streamlit frontend, FastAPI service, scikit-learn inference pipeline, and deployment infrastructure.
 
 ![System Architecture](images/system_architecture.png)
 
@@ -157,7 +178,7 @@ The project includes:
 ### DevOps
 
 * Docker (containerized)
-* GitHub Actions (CI/CD)
+* GitHub Actions (CI)
 
 ### Testing
 
@@ -192,7 +213,7 @@ The project includes:
 
 `python -m pytest tests -v   
 `
-## CI/CD Pipeline
+## CI Pipeline
 This project uses GitHub Actions to:
 
 * Install dependencies
@@ -218,7 +239,7 @@ The final model (HistGradientBoostingClassifier with TF-IDF + SVD features) achi
 * Macro F1-score: 0.60
 * Accuracy: ~0.61
 
-Performance is consistent with a small-to-medium sized dataset and a multi-class classification setup with mixed text and structured features.
+Given the dataset size (~2,000 samples), a weighted F1 of 0.61 indicates the model captures meaningful signal from both review text and structured purchase information.
 
 ## Dissatisfied Customer Detection (Ratings 1–2)
 * Precision: 0.88
