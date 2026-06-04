@@ -196,17 +196,17 @@ The project includes:
 
 2. Install dependencies
    
-`pip install -r requirements.txt
+`python -m pip install -r requirements.txt
 `
 
 3. Run FastAPI
 
-`uvicorn app.main:app --reload
+`python -m uvicorn app.main:app --reload
 `
 
 4. Run Streamlit app
 
-`streamlit run streamlit_app.py
+`python -m streamlit run streamlit_app.py
 `
 
 ## Running Tests
@@ -232,18 +232,84 @@ docker run -p 8000:8000 review-model
 The API includes logging to track prediction requests, model outputs and scores. 
 Stored locally at: logs/predictions.log
 
-## Model Performance 
+## Model Performance
+
 The final model (HistGradientBoostingClassifier with TF-IDF + SVD features) achieved:
 
 * Weighted F1-score: 0.61
 * Macro F1-score: 0.60
 * Accuracy: ~0.61
 
-Given the dataset size (~2,000 samples), a weighted F1 of 0.61 indicates the model captures meaningful signal from both review text and structured purchase information.
+Performance is consistent with a small dataset (~2,000 reviews) and a multi-class classification task combining text and structured features.
 
-## Dissatisfied Customer Detection (Ratings 1–2)
+
+## Model Comparison
+
+Multiple models were evaluated using cross-validation on the combined feature set.
+
+| Model | Weighted F1 |
+|---------|---------|
+| Logistic Regression | 0.54 |
+| HistGradientBoosting | 0.57 |
+| Random Forest | 0.59 |
+| Voting Ensemble | 0.60 |
+| Tuned HistGradientBoosting | 0.61 |
+
+## Final Model Selection
+
+The Voting Ensemble achieved similar performance (~0.60 Weighted F1), but the tuned HistGradientBoostingClassifier was selected as the final model because:
+
+* Comparable predictive performance
+* Simpler deployment architecture
+* Faster inference
+* Easier hyperparameter optimization
+* Lower operational complexity
+
+The final performance difference was within normal cross-validation variance, making the single-model solution preferable.
+
+
+## Hyperparameter Tuning
+
+RandomizedSearchCV was used to jointly optimize:
+
+* TF-IDF representation
+* TruncatedSVD dimensionality reduction
+* HistGradientBoosting hyperparameters
+Best configuration:
+
+* TF-IDF max_features = 1000
+* TF-IDF ngram_range = (1,1)
+* TF-IDF min_df = 5
+* SVD components = 200
+* learning_rate = 0.1
+* max_depth = 5
+* max_leaf_nodes = 15
+
+Best cross-validated Weighted F1:
+
+**0.6055**
+
+
+## Threshold Calibration
+
+The business objective prioritized identifying dissatisfied customers (ratings 1–2). A custom threshold evaluation was performed using out-of-fold probabilities.
+
+Selected threshold:
+
+**0.40**
+
+Results:
+
 * Precision: 0.88
 * Recall: 0.85
 
-The model is effective at identifying dissatisfied customers, which is the key business objective.
+This threshold provided the best balance between customer recovery opportunities and false positive interventions.
+
+
+## Dissatisfied Customer Detection
+
+* Precision: 0.88
+* Recall: 0.85
+
+The model effectively identifies dissatisfied customers, enabling proactive support and intervention.
 
