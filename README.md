@@ -1,12 +1,20 @@
 # Customer Review Rating Prediction System
 ## Overview
-This project is an end-to-end Machine Learning system that predicts customer review ratings (1–5 ratings) and identifies dissatisfaction risk based on both review text and structured e-commerce data. 
-The system is designed with a modular ML pipeline separating data processing, model training, and deployment components, making it suitable as a production-style ML application.
+This project is a production-style end-to-end Machine Learning system that predicts customer review ratings (1–5 stars) and identifies dissatisfied customers using both NLP-based text analysis and structured e-commerce features.
+The system is designed with a modular, service-oriented architecture that separates:
+
+* Data processing
+* Model training
+* Inference serving
+* Frontend interaction
+* Deployment & CI/CD
+
+It demonstrates a complete ML engineering lifecycle: from raw data → trained model → deployed API → interactive UI.
+
 
 ## Disclaimer 
 Originally, this project was developed as part of a graduate-level Machine Learning course final group project. I later extended and enhanced into a production-style machine learning application.
-
-Predictions are probabilistic and should not be used as the sole basis for business decisions.
+Predictions are probabilistic and intended for demonstration purposes only.
 
 ## My Contributions
 
@@ -51,47 +59,56 @@ https://e-commerce-review-prediction-system.up.railway.app/
 #### Input Interface
 ![Input Interface](images/input_streamlit.png)
 
+
 #### Prediction Results
-![Prediction Results 1](images/output_streamlit_1.png)
-![Prediction Results 2](images/output_streamlit_2.png)
+![Prediction Results 1](images/)
+![Prediction Results 2](images/)
 
 ### FastAPI backend link (API):
 
 https://backend-e-commerce-review-prediction-system.up.railway.app/docs
 
 ## Problem Statement
-Online retailers often struggle to identify dissatisfied customers early. This system enables proactive customer support and business intervention. It predicts:
 
-* Rating (1–5)
-* Probability of dissatisfaction (ratings 1–2)
-* Full probability distribution across ratings 
+E-commerce platforms often struggle to:
+* Detect dissatisfied customers early
+* Extract sentiment from unstructured review text
+* Combine structured and unstructured data effectively
+
+### Objectives:
+* Predict customer rating (1–5 stars)
+* Identify dissatisfied customers (ratings 1–2)
+* Provide probability distribution over all classes
+* Enable real-time inference via API
+
 
 ## Machine Learning Approach
 
 ### Feature Engineering
-* Text Features: TF-IDF (vectorization of review text) and SVD (dimensionality reduction)
-* Numerical Features: StandardScaler 
-* Categorical Features: OneHotEncoding
+* Text: TF-IDF + TruncatedSVD for semantic compression
+* Numerical: StandardScaler with median imputation
+* Categorical: OneHotEncoding with missing-value handling
 
 ### Model
-* HistGradientBoostingClassifier (Scikit-learn)
-* Hyperparameter tuning performed using RandomizedSearchCV
-* Threshold calibration for dissatisfied customer detection
+* HistGradientBoostingClassifier (final production model)
+* Optimized for structured and sparse text features
+* Handles non-linear interactions efficiently
 
-### Pipeline
-Fully modular sklearn Pipeline combining:
+### Training Strategy
+* RandomizedSearchCV for hyperparameter tuning
+* 5-fold cross-validation
+* Joint optimization of feature representation and model parameters
 
-* ColumnTransformer
-* Feature pipelines
-* Final classifier
+### Evaluation
+* Weighted F1-score used as primary metric due to class imbalance
+* Additional business metric: dissatisfied customer detection (high recall priority)
+  
 
 ## System Architecture
 
 The system is split into four layers: Streamlit frontend, FastAPI service, scikit-learn inference pipeline, and deployment infrastructure.
 
 ![System Architecture](images/system_architecture.png)
-
-### Architecture Components
 
 #### Clients
 Users interact with the system through the Streamlit interface by:
@@ -128,7 +145,6 @@ The machine learning pipeline includes:
 * Structured feature preprocessing
 * HistGradientBoostingClassifier inference
 
-The system combines text, numerical, and categorical features using Scikit-learn pipelines and column transformers.
 
 #### Model & Artifacts
 
@@ -157,6 +173,53 @@ The project includes:
 * GitHub Actions CI/CD
 * Automated testing with pytest
 * Railway deployment
+
+## System Execution Flow
+
+* User submits review via Streamlit UI
+* Request is sent to FastAPI backend
+* Pydantic validates input schema
+* Pre-trained ML pipeline processes features and generates predictions
+* API returns rating, probabilities, and dissatisfaction score
+* Streamlit visualizes results in real time
+
+## Project Structure
+
+The project follows a modular structure separating application logic, ML components, experiments, and deployment configuration.
+```
+.github/              # CI workflows (GitHub Actions)
+
+app/                  # FastAPI backend application
+
+data/                 # Raw and processed datasets
+
+images/               # README images and architecture diagram
+
+logs/                 # Runtime logs (predictions)
+
+models/               # Trained ML models and artifacts
+
+notebooks/            # Exploratory data analysis and experiments
+
+reports/              # Evaluation reports and model results
+
+tests/                # Unit and integration tests (pytest)
+
+Dockerfile            # Containerization configuration
+
+Procfile              # Deployment configuration (Railway)
+
+requirements.txt      # Python dependencies
+
+streamlit_app.py      # Frontend UI (Streamlit)
+
+README.md             # Project documentation
+
+.gitignore            # Ignored files for Git
+
+.dockerignore         # Ignored files for Docker builds
+
+```
 
 ## Tech Stack
 
@@ -232,20 +295,38 @@ docker run -p 8000:8000 review-model
 The API includes logging to track prediction requests, model outputs and scores. 
 Stored locally at: logs/predictions.log
 
+## Dataset
+
+The dataset contains ~2,000 e-commerce product reviews with:
+
+* review_text (text)
+* product_price
+* seller_rating
+* delivery_days
+* product_category
+* user engagement features (helpful votes, etc.)
+
+Target:
+* rating (1–5 stars)
+
+
 ## Model Performance
 
 The final model (HistGradientBoostingClassifier with TF-IDF + SVD features) achieved:
 
-* Weighted F1-score: 0.61
-* Macro F1-score: 0.60
-* Accuracy: ~0.61
+### Overall Metrics
+- Weighted F1: 0.61
+- Macro F1: 0.60
+- Accuracy: 0.61
 
-Performance is consistent with a small dataset (~2,000 reviews) and a multi-class classification task combining text and structured features.
-
+### Business Objective (Dissatisfied Customers)
+- Precision: 0.88
+- Recall: 0.85
+- Threshold: 0.40
 
 ## Model Comparison
 
-Multiple models were evaluated using cross-validation on the combined feature set.
+Multiple models were evaluated using cross-validation on the combined feature set. 
 
 | Model | Weighted F1 |
 |---------|---------|
@@ -265,8 +346,7 @@ The Voting Ensemble achieved similar performance (~0.60 Weighted F1), but the tu
 * Easier hyperparameter optimization
 * Lower operational complexity
 
-The final performance difference was within normal cross-validation variance, making the single-model solution preferable.
-
+IMPORTANT: All non-final models (including ensemble approaches) were used strictly for benchmarking and are not part of the production inference pipeline.
 
 ## Hyperparameter Tuning
 
@@ -289,27 +369,11 @@ Best cross-validated Weighted F1:
 
 **0.6055**
 
+## Limitations
 
-## Threshold Calibration
+* Model performance decreases on very short reviews
+* TF-IDF representation does not capture deep semantic meaning
+* Dataset is relatively small (~2,000 samples)
+* No real-time online learning implemented
 
-The business objective prioritized identifying dissatisfied customers (ratings 1–2). A custom threshold evaluation was performed using out-of-fold probabilities.
-
-Selected threshold:
-
-**0.40**
-
-Results:
-
-* Precision: 0.88
-* Recall: 0.85
-
-This threshold provided the best balance between customer recovery opportunities and false positive interventions.
-
-
-## Dissatisfied Customer Detection
-
-* Precision: 0.88
-* Recall: 0.85
-
-The model effectively identifies dissatisfied customers, enabling proactive support and intervention.
 
