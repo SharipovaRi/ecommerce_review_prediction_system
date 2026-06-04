@@ -87,7 +87,7 @@ Fully modular sklearn Pipeline combining:
 
 ## System Architecture
 
-The project follows a modular production-style machine learning architecture separating frontend, backend, inference pipeline, and deployment components.
+The system is split into four layers: Streamlit frontend, FastAPI service, scikit-learn inference pipeline, and deployment infrastructure.
 
 ![System Architecture](images/system_architecture.png)
 
@@ -239,7 +239,7 @@ The final model (HistGradientBoostingClassifier with TF-IDF + SVD features) achi
 * Macro F1-score: 0.60
 * Accuracy: ~0.61
 
-Performance is consistent with a small-to-medium sized dataset and a multi-class classification setup with mixed text and structured features.
+Given the dataset size (~2,000 samples), a weighted F1 of 0.61 indicates the model captures meaningful signal from both review text and structured purchase information.
 
 ## Dissatisfied Customer Detection (Ratings 1–2)
 * Precision: 0.88
