@@ -61,8 +61,8 @@ https://e-commerce-review-prediction-system.up.railway.app/
 
 
 #### Prediction Results
-![Prediction Results 1](images/output_streamlit_1.png)
-![Prediction Results 2](images/output_streamlit_2.png)
+![Prediction Results 1](images/)
+![Prediction Results 2](images/)
 
 ### FastAPI backend link (API):
 
