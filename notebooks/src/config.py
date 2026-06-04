@@ -73,12 +73,12 @@ categorical_pipeline = Pipeline([
 text_pipeline = Pipeline([
     ("tfidf", TfidfVectorizer(
         stop_words="english",
-        max_features=5000,
-        ngram_range=(1, 2),
-        min_df=2,
+        max_features=1000,
+        ngram_range=(1, 1),
+        min_df=5,
         max_df=0.95
     )),
-    ("svd", TruncatedSVD(n_components=100, random_state=42))
+    ("svd", TruncatedSVD(n_components=200, random_state=42))
 ])
 
 

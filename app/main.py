@@ -44,6 +44,7 @@ class ReviewInput(BaseModel):
     product_weight_kg: float
     image_count: int
     product_category: str
+    verified_purchase: int
 
 # Root endpoint
 @app.get("/")
@@ -70,7 +71,8 @@ def predict_rating(data: ReviewInput):
         "discount_pct": data.discount_pct,
         "product_weight_kg": data.product_weight_kg,
         "image_count": data.image_count,
-        "product_category": data.product_category
+        "product_category": data.product_category,
+        "verified_purchase": data.verified_purchase
     }])
 
 

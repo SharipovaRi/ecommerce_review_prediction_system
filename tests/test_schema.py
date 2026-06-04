@@ -9,6 +9,7 @@ def test_schema_valid_input():
         product_price=20.0,
         product_age_months=3,
         return_initiated=0,
+        verified_purchase=1,
         num_previous_reviews_by_user=3,
         helpful_votes=5,
         discount_pct=0.1,

@@ -41,11 +41,18 @@ The model predicts likely ratings but does not determine the true intent or emot
 - review_text
 
 ## Structured Features
-- delivery_days
-- seller_rating
-- return_initiated
 - product_price
+- seller_rating
+- delivery_days
 - product_age_months
+- num_previous_reviews_by_user
+- verified_purchase
+- return_initiated
+- helpful_votes
+- discount_pct
+- product_weight_kg
+- image_count
+- product_category
 
 Additional structured features may be incorporated depending on deployment requirements.
 
@@ -68,9 +75,9 @@ The system also supports threshold-based identification of dissatisfied customer
 
 ## Text Representation
 - TF-IDF Vectorization
-- max_features = 5000
+- max_features = 1000
 - ngram_range = (1,1)
-- min_df = 2
+- min_df = 5
 
 ## Dimensionality Reduction
 - TruncatedSVD
@@ -85,14 +92,14 @@ The final hyperparameters were selected using RandomizedSearchCV with cross-vali
 # Performance Metrics
 
 ## Final Tuned Model
-- Weighted F1 Score: 0.6068
-- Macro F1 Score: 0.5969
+- Weighted F1 = 0.6055
+- Macro F1 = 0.6005
 
 ## Dissatisfied Customer Detection
-Threshold = 0.50 for combined probability of ratings 1–2
+Threshold = 0.40 for combined probability of ratings 1–2
 
-- Recall: 0.83
-- Precision: 0.92
+- Recall: 0.85
+- Precision: 0.88
 
 The tuned HistGradientBoosting model performed competitively with the best ensemble baseline while maintaining a simpler and more efficient architecture.
 

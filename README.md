@@ -299,12 +299,19 @@ Stored locally at: logs/predictions.log
 
 The dataset contains ~2,000 e-commerce product reviews with:
 
-* review_text (text)
+* review_text 
 * product_price
 * seller_rating
 * delivery_days
+* product_age_months
+* num_previous_reviews_by_user
+* verified_purchase
+* return_initiated
+* helpful_votes
+* discount_pct
+* product_weight_kg
+* image_count
 * product_category
-* user engagement features (helpful votes, etc.)
 
 Target:
 * rating (1–5 stars)
@@ -368,6 +375,17 @@ Best configuration:
 Best cross-validated Weighted F1:
 
 **0.6055**
+
+Note: 
+In the section 3_feature_engineering, the notebook configuration (max_features=5000, ngram_range=(1,2), min_df=2) reflects the initial experimentation setup.
+
+RandomizedSearchCV subsequently selected a different configuration for deployment:
+
+* max_features = 1000
+* min_df = 5
+* ngram_range = (1,1)
+
+These parameters are implemented in models/final_pipeline_def.py.
 
 ## Limitations
 

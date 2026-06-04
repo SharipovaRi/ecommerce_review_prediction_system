@@ -100,6 +100,11 @@ with col1:
         value=6
     )
 
+    verified_purchase = st.selectbox(
+        "Verified Purchase",
+        [0, 1]
+    )
+
     return_initiated = st.selectbox(
         "Return Initiated",
         [0, 1]
@@ -143,13 +148,13 @@ with col2:
 product_category = st.selectbox(
     "Product Category",
     [
-        "Electronics",
-        "Fashion",
-        "Home",
-        "Beauty",
-        "Sports",
-        "Books",
-        "Toys"
+        "electronics",
+        "fashion",
+        "home",
+        "beauty",
+        "sports",
+        "books",
+        "toys"
     ]
 )
 
@@ -170,7 +175,8 @@ if st.button("Predict Rating"):
         "discount_pct": discount_pct,
         "product_weight_kg": product_weight_kg,
         "image_count": image_count,
-        "product_category": product_category
+        "product_category": product_category,
+        "verified_purchase": verified_purchase
     }])
 
     # Prediction

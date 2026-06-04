@@ -18,7 +18,9 @@ NUMERIC_FEATURES = [
     "helpful_votes",
     "discount_pct",
     "product_weight_kg",
-    "image_count"
+    "image_count",
+    "verified_purchase",
+    "return_initiated"
 ]
 
 CATEGORICAL_FEATURES = ["product_category"]
