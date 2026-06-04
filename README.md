@@ -33,7 +33,15 @@ https://e-commerce-review-prediction-system.up.railway.app/
 2. Enter review details
 3. Click "Predict Rating"
 4. View prediction and probability breakdown
-   
+
+### Application Screenshots 
+#### Input Interface
+![Input Interface](images/input_streamlit.png)
+
+#### Prediction Results
+![Prediction Results 1](images/output_streamlit_1.png)
+![Prediction Results 2](images/output_streamlit_2.png)
+
 ### FastAPI backend link (API):
 
 https://backend-e-commerce-review-prediction-system.up.railway.app/docs
