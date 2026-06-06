@@ -9,7 +9,7 @@ The system is designed with a modular, service-oriented architecture that separa
 * Frontend interaction
 * Deployment & CI/CD
 
-It demonstrates a complete ML engineering lifecycle: from raw data → trained model → deployed API → interactive UI.
+It demonstrates a complete ML engineering lifecycle: from raw data -> trained model -> deployed API -> interactive UI.
 
 
 ## Disclaimer 
